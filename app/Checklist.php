@@ -13,4 +13,9 @@ class Checklist extends Model
         return $this->hasMany('App\Item');
     }
 
+    public function item()
+    {
+        return $this->hasOne('App\Item')->where('id', 1);
+    }
+
 }

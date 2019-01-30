@@ -19,11 +19,15 @@ $router->group(['prefix' => 'checklists'], function () use ($router) {
     $router->get('/', 'CheckListController@all');
     $router->patch('complete', 'ItemController@complete');
     $router->patch('incomplete', 'IncompleteController@incomplete');
+
     $router->get('/{item}/items', 'CheckListController@items');
 
     $router->post('/{checklist}/items', 'ItemController@store');
-
     $router->get('/{checklist}/items/{item}', 'CheckListController@item');
-
     $router->delete('/{checklist}/items/{item}', 'ItemController@delete');
+
+    $router->post('/templates', 'TemplateController@store');
+    $router->get('/templates/{template}', 'TemplateController@show');
+    $router->patch('/templates/{template}', 'TemplateController@update');
+    $router->delete('/templates/{template}', 'TemplateController@delete');
 });

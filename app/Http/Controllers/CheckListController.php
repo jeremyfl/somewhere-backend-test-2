@@ -38,9 +38,7 @@ class CheckListController extends Controller
      */
     public function item($checklist, $item)
     {
-        $checklistWithItem = Checklist::with(['items'], function ($query, $item) {
-            $query->where('id', $item);
-        })->where('id', $item)->first();
+        $checklistWithItem = Checklist::with('item')->where('id', $checklist)->first();
 
         return response()->json($checklistWithItem);
     }
