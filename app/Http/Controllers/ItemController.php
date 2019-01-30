@@ -53,4 +53,15 @@ class ItemController extends Controller
 
         return response()->json($item);
     }
+
+    public function delete($item, $checklist)
+    {
+        $deleteItem = Item::where('id', $item)->where('checklist_id', $checklist)->delete();
+
+        if (!$deleteItem) {
+            return response()->json(['message' => "Sorry something went wrong"]);
+        }
+
+        return response()->json($deleteItem);
+    }
 }

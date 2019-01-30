@@ -20,6 +20,10 @@ $router->group(['prefix' => 'checklists'], function () use ($router) {
     $router->patch('complete', 'ItemController@complete');
     $router->patch('incomplete', 'IncompleteController@incomplete');
     $router->get('/{item}/items', 'CheckListController@items');
+
     $router->post('/{checklist}/items', 'ItemController@store');
+
     $router->get('/{checklist}/items/{item}', 'CheckListController@item');
+
+    $router->delete('/{checklist}/items/{item}', 'ItemController@delete');
 });
