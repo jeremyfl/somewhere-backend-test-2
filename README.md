@@ -12,6 +12,18 @@ A test from Keller Williams
 
 `vendor/bin/phpunit --filter=testShouldReturnAllChecklists`
 
-# Authentication
+## Authentication
+
+### Register
+
+Simply post this form encode to /register
+
+```
+email:jeremy@gmail.com
+password:jeremi11
+name:Jeremy
+```
+
+### Login
 
 Set header to bearer token and use token from api_key login
