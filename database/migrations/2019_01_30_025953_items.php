@@ -16,7 +16,7 @@ class Items extends Migration
         Schema::create('items', function (Blueprint $table) {
             $table->increments('id');
             $table->string('description');
-            $table->boolean('is_completed');
+            $table->boolean('is_completed')->default(0);
             $table->dateTime('completed_at')->nullable();
             $table->dateTime('due');
             $table->integer('urgency');

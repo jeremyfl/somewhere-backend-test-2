@@ -15,10 +15,11 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->get('checklist', 'CheckListController@all');
-
-// Item
-$router->get('item', 'ItemController@all');
-
-// Template
-$router->get('template', 'TemplateController@all');
+$router->group(['prefix' => 'checklists'], function () use ($router) {
+    $router->get('/', 'CheckListController@all');
+    $router->patch('complete', 'ItemController@complete');
+    $router->patch('incomplete', 'IncompleteController@incomplete');
+    $router->get('/{item}/items', 'CheckListController@items');
+    $router->post('/{checklist}/items', 'ItemController@store');
+    $router->get('/{checklist}/items/{item}', 'CheckListController@item');
+});
