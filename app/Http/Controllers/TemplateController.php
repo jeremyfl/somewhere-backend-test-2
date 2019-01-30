@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Checklist;
+use App\Template;
 
-class CheckListController extends Controller
+class TemplateController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -18,9 +18,9 @@ class CheckListController extends Controller
 
     public function all()
     {
-        $checklists = Checklist::paginate(5);
+        $templates = Template::with('checklists.items')->paginate(5);
 
-        return response()->json($checklists);
+        return response()->json($templates);
     }
 
     //

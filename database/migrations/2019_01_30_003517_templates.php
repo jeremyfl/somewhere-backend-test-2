@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Checklists extends Migration
+class Templates extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class Checklists extends Migration
      */
     public function up()
     {
-        Schema::create('checklists', function (Blueprint $table) {
+        Schema::create('templates', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('airline');
-            $table->timestamps();
         });
+
     }
 
     /**
@@ -28,6 +27,6 @@ class Checklists extends Migration
      */
     public function down()
     {
-        Schema::drop('flights');
+        Schema::drop('templates');
     }
 }

@@ -16,3 +16,9 @@ $router->get('/', function () use ($router) {
 });
 
 $router->get('checklist', 'CheckListController@all');
+
+// Item
+$router->get('item', 'ItemController@all');
+
+// Template
+$router->get('template', 'TemplateController@all');
