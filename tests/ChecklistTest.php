@@ -38,4 +38,31 @@ class ChecklistTest extends TestCase
         ]);
 
     }
+
+    public function testShouldReturnOneChecklist()
+    {
+        $this->get("checklists/1", []);
+
+        $this->seeStatusCode(200);
+
+        $this->seeJsonStructure([
+            'id',
+            'description',
+            'updated_by',
+            'urgency',
+            'template_id',
+            'domain_id',
+            'created_at',
+            'updated_at',
+            ['domain' =>
+                ['*' => [
+                    'id',
+                    'name',
+                    'created_at',
+                    'updated_at',
+                ]],
+            ],
+        ]);
+    }
+
 }
