@@ -20,7 +20,7 @@ class Checklist extends Model
 
     public function item()
     {
-        return $this->hasOne('App\Item')->where('id', 1);
+        return $this->hasOne('App\Item');
     }
 
 }
