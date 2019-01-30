@@ -81,4 +81,17 @@ class CheckListController extends Controller
 
         return response()->json($checklistWithItem);
     }
+
+    public function assign(Request $request, $template)
+    {
+        $updateTemplate = Checklist::where('id', $request->input('checklist_id'))->update([
+            'template_id' => $template,
+        ]);
+
+        if (!$updateTemplate) {
+            return response()->json(['message' => "Sorry something went wrong"]);
+        }
+
+        return response()->json($updateTemplate);
+    }
 }

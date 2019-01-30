@@ -35,6 +35,7 @@ $router->group(['middleware' => 'auth', 'prefix' => 'checklists'], function () u
     $router->get('/templates/{template}', 'TemplateController@show');
     $router->patch('/templates/{template}', 'TemplateController@update');
     $router->delete('/templates/{template}', 'TemplateController@delete');
+    $router->post('/templates/{template}/assign', 'TemplateController@assign');
 });
 
 $router->post('/login', 'AuthController@authenticate');
