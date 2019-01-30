@@ -16,6 +16,7 @@ $router->get('/', function () use ($router) {
 });
 
 $router->group(['middleware' => 'auth', 'prefix' => 'checklists'], function () use ($router) {
+// $router->group(['prefix' => 'checklists'], function () use ($router) {
     $router->get('/', 'CheckListController@all');
     $router->get('/{checklist}', 'CheckListController@show');
     $router->post('/', 'ItemController@store');
