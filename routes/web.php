@@ -15,7 +15,7 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->group(['prefix' => 'checklists'], function () use ($router) {
+$router->group(['middleware' => 'auth', 'prefix' => 'checklists'], function () use ($router) {
     $router->get('/', 'CheckListController@all');
     $router->get('/{checklist}', 'CheckListController@show');
     $router->post('/', 'ItemController@store');
@@ -35,3 +35,6 @@ $router->group(['prefix' => 'checklists'], function () use ($router) {
     $router->patch('/templates/{template}', 'TemplateController@update');
     $router->delete('/templates/{template}', 'TemplateController@delete');
 });
+
+$router->post('/login', 'AuthController@authenticate');
+$router->post('/register', 'AuthController@store');
