@@ -9,10 +9,16 @@ class CheckListController extends Controller
 {
     public function all(Request $request)
     {
-        if ($request['include'] == "items") {
-            $checklists = Checklist::with('items')->get();
+        if ($request['sort'] == "urgency") {
+            $sort = "urgency";
         } else {
-            $checklists = Checklist::paginate(5);
+            $sort = "id";
+        }
+
+        if ($request['include'] == "items") {
+            $checklists = Checklist::orderBy($sort, 'DESC')->with('items')->get();
+        } else {
+            $checklists = Checklist::orderBy($sort, 'DESC')->paginate(5);
         }
 
         return response()->json($checklists);
