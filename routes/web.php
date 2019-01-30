@@ -17,6 +17,10 @@ $router->get('/', function () use ($router) {
 
 $router->group(['prefix' => 'checklists'], function () use ($router) {
     $router->get('/', 'CheckListController@all');
+    $router->get('/{checklist}', 'CheckListController@show');
+    $router->post('/', 'ItemController@store');
+    $router->patch('/', 'ItemController@update');
+
     $router->patch('complete', 'ItemController@complete');
     $router->patch('incomplete', 'IncompleteController@incomplete');
 

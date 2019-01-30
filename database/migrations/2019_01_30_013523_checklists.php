@@ -18,7 +18,7 @@ class Checklists extends Migration
             $table->string('object_domain');
             $table->string('object_id');
             $table->string('description');
-            $table->boolean('is_completed');
+            $table->boolean('is_completed')->defaultTo(0);
             $table->dateTime('completed_at')->nullable();
             $table->string('updated_by');
             $table->integer('urgency');
