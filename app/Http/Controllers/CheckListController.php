@@ -3,22 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Checklist;
+use App\Domain;
 use Illuminate\Http\Request;
 
 class CheckListController extends Controller
 {
     public function all(Request $request)
     {
+        $sort = "id";
+
         if ($request['sort'] == "urgency") {
             $sort = "urgency";
-        } else {
-            $sort = "id";
         }
 
+        $checklists = Domain::with('checklists')->orderBy($sort, 'DESC')->paginate(5);
+
         if ($request['include'] == "items") {
-            $checklists = Checklist::orderBy($sort, 'DESC')->with('items')->get();
-        } else {
-            $checklists = Checklist::orderBy($sort, 'DESC')->paginate(5);
+            $checklists = Domain::with('checklists')->orderBy($sort, 'DESC')->with('items')->get();
         }
 
         return response()->json($checklists);
@@ -26,20 +27,22 @@ class CheckListController extends Controller
 
     public function show($checklist)
     {
-        $checklist = Checklist::find($checklist);
+        $checklist = Checklist::with('domain')->where('id', $checklist)->first();
 
-        return response()->json($checklist);
+        if (!$checklist) {
+            return response()->json(["status" => 404, "error" => "not found"], 404);
+        }
+
+        return response()->json(['data' => $checklist]);
     }
 
     public function store(Request $request)
     {
         $checklist = new Checklist;
-        $checklist->object_domain = $request->input('object_domain');
-        $checklist->object_id = $request->input('object_id');
         $checklist->description = $request->input('description');
-        $checklist->description = $request->input('description');
-        $checklist->completed_at = $request->input('completed_at');
         $checklist->urgency = $request->input('urgency');
+        $checklist->template_id = $request->input('template_id');
+        $checklist->domain_id = $request->input('domain_id');
         $checklist->save();
 
         if (!$checklist) {
@@ -51,14 +54,18 @@ class CheckListController extends Controller
 
     public function update(Request $request, $template)
     {
+        $checklist = Checklist::find($checklist);
+
+        if (!$checklist) {
+            return response()->json(["status" => 404, "error" => "not found"], 404);
+        }
+
         $updateTemplate = Template::where('id', $template)->update([
-            'object_domain' => $request->input('object_domain'),
-            'object_id' => $request->input('object_id'),
             'description' => $request->input('description'),
-            'is_completed' => $request->input('is_completed'),
             'updated_by' => $request->input('updated_by'),
             'urgency' => $request->input('urgency'),
             'template_id' => $request->input('template_id'),
+            'domain_id' => $request->input('domain_id'),
         ]);
 
         if (!$updateTemplate) {

@@ -4,7 +4,6 @@ class ChecklistTest extends TestCase
 {
     public function testShouldReturnAllChecklists()
     {
-        $this->refreshApplication();
         $this->get("checklists", []);
 
         $this->seeStatusCode(200);

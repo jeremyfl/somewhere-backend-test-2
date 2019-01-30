@@ -15,16 +15,15 @@ class Checklists extends Migration
     {
         Schema::create('checklists', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('object_domain');
-            $table->string('object_id');
             $table->string('description');
-            $table->boolean('is_completed')->defaultTo(0);
-            $table->dateTime('completed_at')->nullable();
-            $table->string('updated_by');
+            $table->string('updated_by')->nullable();
             $table->integer('urgency');
 
             $table->unsignedInteger('template_id');
             $table->foreign('template_id')->references('id')->on('templates');
+
+            $table->unsignedInteger('domain_id');
+            $table->foreign('domain_id')->references('id')->on('domains');
             $table->timestamps();
         });
     }

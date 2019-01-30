@@ -19,11 +19,8 @@ $router->group(['middleware' => 'auth', 'prefix' => 'checklists'], function () u
 // $router->group(['prefix' => 'checklists'], function () use ($router) {
     $router->get('/', 'CheckListController@all');
     $router->get('/{checklist}', 'CheckListController@show');
-    $router->post('/', 'ItemController@store');
-    $router->patch('/', 'ItemController@update');
-
-    $router->patch('complete', 'ItemController@complete');
-    $router->patch('incomplete', 'IncompleteController@incomplete');
+    $router->post('/', 'CheckListController@store');
+    $router->patch('/{checklist}', 'CheckListController@update');
 
     $router->get('/{item}/items', 'CheckListController@items');
 
@@ -37,6 +34,9 @@ $router->group(['middleware' => 'auth', 'prefix' => 'checklists'], function () u
     $router->delete('/templates/{template}', 'TemplateController@delete');
     $router->post('/templates/{template}/assign', 'TemplateController@assign');
 });
+
+$router->patch('checklist/complete', 'ItemController@complete');
+$router->patch('checklist/incomplete', 'ItemController@incomplete');
 
 $router->post('/login', 'AuthController@authenticate');
 $router->post('/register', 'AuthController@store');
